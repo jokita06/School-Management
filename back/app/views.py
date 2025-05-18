@@ -4,7 +4,7 @@ from .serializers import FuncionarioSerializer, AmbienteAulaSerializer, Discipli
 from .models import Funcionario, Disciplina, AmbienteAula
 from .permissions import permissao_gestor
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework import  permissions
+from rest_framework import permissions
 
 class Login(TokenObtainPairView):
     serializer_class = LoginSerializer
