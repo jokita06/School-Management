@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, MinLengthValidator
+from datetime import date
 
 class Funcionario(AbstractUser):
     NI = models.IntegerField(
@@ -15,9 +16,10 @@ class Funcionario(AbstractUser):
     )
     
     dt_nascimento = models.DateField(null=True, blank=True)
+    data_contratacao = models.DateField(null=False, blank=False, default=date.today)
     
     telefone = models.CharField (
-        max_length=13,
+        max_length=14,
         unique=True,
         validators=[
             MinLengthValidator(13),
@@ -34,6 +36,15 @@ class Funcionario(AbstractUser):
         ('P', 'Professor')
     ]
     cargo = models.CharField(max_length=1, choices=tipo_cargo, null=False, blank=False)
+
+    def clean(self):
+        super().clean()
+
+        hoje = date.today()
+
+        # Validação de contratação
+        if self.data_contratacao > hoje:
+            raise ValidationError("A data de contratação não pode ser futura.")
 
 class Disciplina(models.Model):
     nome = models.CharField(max_length=60)
@@ -77,6 +88,24 @@ class AmbienteAula(models.Model):
         # Validação datas
         if self.dt_termino < self.dt_inicio:
             raise ValidationError("A data de término deve ser posterior à data de início!")
+        
+        # Validação de conflito de reserva 
+        queryset = AmbienteAula.objects.filter(
+            sala_reservada=self.sala_reservada,
+            periodo=self.periodo,
+            dt_inicio__lte=self.dt_termino,
+            dt_termino__gte=self.dt_inicio
+        )
+        
+        # Exclui a própria instância se já existir no banco
+        if self.pk:
+            queryset = queryset.exclude(pk=self.pk)
+        
+        if queryset.exists():
+            conflito = queryset.first()
+            raise ValidationError(
+                f"Reserva existente na mesma data e perído de {conflito.disciplina}"
+            )
 
     def save(self, *args, **kwargs):
         self.full_clean()  # Executa validações do modelo
