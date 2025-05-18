@@ -67,29 +67,19 @@ class AmbienteAula(models.Model):
     professor = models.ForeignKey(Funcionario, on_delete=models.CASCADE, limit_choices_to={'cargo':'P'})
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
 
-    # Validação se a disciplina relacionada com o Ambiente e a mesma que é relacionada
-    # com o professor em Disciplina
     def clean(self):
         super().clean()
+        
+        # Validação professor-disciplina
         if self.disciplina.professor != self.professor:
             raise ValidationError("A disciplina selecionada não está associada a este professor!")
+        
+        # Validação datas
         if self.dt_termino < self.dt_inicio:
-            raise ValidationError("A data de término deve ser superior à data de início!")
+            raise ValidationError("A data de término deve ser posterior à data de início!")
 
-    # Validação de conflito de reserva
-    conflitos = AmbienteAula.objects.filter(
-        sala_reservada=self.sala_reservada, 
-        periodo=self.periodo, 
-        dt_inicio__lte=self.dt_termino, #lte = less than or equal
-        dt_termino__gte=self.dt_inicio #gte = greater than or equal
-    ).exclude(pk=self.pk if self.pk else None)
-    
-    if conflitos.exists():
-        raise ValidationError("Já existe uma reserva para esta sala no mesmo período e data!")
-
-    # Função para salvar 
     def save(self, *args, **kwargs):
-        self.full_clean() # Executa validações do modelo
+        self.full_clean()  # Executa validações do modelo
         super().save(*args, **kwargs)
 
     def __str__(self):

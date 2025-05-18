@@ -147,4 +147,6 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
+AUTH_USER_MODEL = 'app.Funcionario' 
+
 CORS_ALLOW_ALL_ORIGINS = True
