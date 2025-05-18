@@ -1,0 +1,38 @@
+table {
+    width: 100%;
+    border-spacing: 0; 
+    border-bottom: 3px solid var(--botoes-links);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+}
+
+th, td {
+    padding: 0.70rem;
+    text-align: left;
+    border: none;
+}
+
+td {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+th {
+    background-color: var(--botoes-links);
+    color: white;
+}
+
+tr:hover td {
+    background-color: rgb(255, 255, 255);
+    transition: ease-in-out 0.2s;
+}
+
+.add-button {
+    display: flex;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    align-items: center;
+}
+
+.icons-table {
+    font-size: 1.3rem;
+}
