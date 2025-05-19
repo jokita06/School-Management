@@ -45,6 +45,10 @@ class Funcionario(AbstractUser):
         # Validação de contratação
         if self.data_contratacao > hoje:
             raise ValidationError("A data de contratação não pode ser futura.")
+    
+    def __str__(self):
+        return self.get_full_name() 
+
 
 class Disciplina(models.Model):
     nome = models.CharField(max_length=60)

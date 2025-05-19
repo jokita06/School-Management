@@ -13,18 +13,18 @@ const fieldMappings = {
   },
   ambientes: {
     endpoint: 'ambientes/',
-    fields: ['dt_inicio', 'dt_termino', 'sala_reservada', 'periodo', 'professor', 'disciplina'],
-    fieldNames: ['Data Início', 'Data Término', 'Sala', 'Período', 'Professor', 'Disciplina'],
+    fields: ['sala_reservada', 'disciplina','dt_inicio', 'dt_termino', 'periodo', 'professor'], 
+    fieldNames: ['Sala', 'Disciplina', 'Data Início', 'Data Término', 'Período', 'Professor'],
     formatField: {
       periodo: (p) => ({ 'M': 'Manhã', 'T': 'Tarde', 'N': 'Noite' }[p] || p),
-      professor: (prof) => prof?.username || 'N/A',
-      disciplina: (disc) => disc?.nome || 'N/A'
+      professor: (prof) => prof || 'N/A',
+      disciplina: (disc) => disc || 'N/A'
     }
   },
   funcionarios: {
     endpoint: 'funcionarios/',
-    fields: ['NI', 'full_name', 'email', 'cargo'],
-    fieldNames: ['NI', 'Nome', 'Email', 'Cargo'],
+    fields: ['NI', 'full_name', 'email', 'telefone', 'data_contratacao', 'cargo'],
+    fieldNames: ['NI', 'Nome', 'Email', 'Telefone', 'Data de Contratação', 'Cargo'],
     formatField: {
       cargo: (value) => value === 'G' ? 'Gestor' : 'Professor'
     }

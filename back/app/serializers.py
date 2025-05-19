@@ -6,7 +6,7 @@ class FuncionarioSerializer(serializers.ModelSerializer):
     full_name = serializers.SerializerMethodField()
     class Meta:
         model = Funcionario
-        fields = ['id', 'NI', 'username',  'email', 'telefone', 'dt_nascimento', 'cargo', 'full_name'] 
+        fields = ['id', 'NI', 'username',  'email', 'telefone', 'dt_nascimento', 'cargo', 'full_name', 'data_contratacao'] 
     def get_full_name(self,obj):
         return obj.get_full_name()
 
@@ -17,9 +17,19 @@ class DisciplinaSerializer(serializers.ModelSerializer):
         fields = ['nome', 'carga_horaria', 'descricao','professor_id', 'professor']
 
 class AmbienteAulaSerializer(serializers.ModelSerializer):
+    professor = serializers.StringRelatedField()
+    disciplina = serializers.SerializerMethodField()
+    sala_reservada = serializers.SerializerMethodField()
+    
     class Meta:
         model = AmbienteAula
-        fields = '__all__'
+        fields = ['sala_reservada', 'disciplina', 'dt_inicio', 'dt_termino', 'periodo', 'professor']
+
+    def get_disciplina(self, obj):
+        return obj.disciplina.nome if obj.disciplina else None
+
+    def get_sala_reservada(self, obj):
+        return obj.sala_reservada.nome if obj.sala_reservada else None
 
 class LoginSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
