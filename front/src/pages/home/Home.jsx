@@ -8,7 +8,6 @@ export function Home() {
   return (
     <>
       <header className="header-banner">
-        {/* Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi quidem accusamus, est, ducimus deleniti cumque exercitationem aliquam officiis perspiciatis, commodi sed dolor placeat dolorem quaerat necessitatibus libero temporibus culpa nobis. */}
         <img 
           src={Banner} 
           alt="Classroom banner" 

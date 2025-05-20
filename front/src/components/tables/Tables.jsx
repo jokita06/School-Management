@@ -5,6 +5,7 @@ import { Modal } from '../modal/Modal';
 import { DisciplineForm, EmployeeForm, EnvironmentForm } from '../forms/Forms'
 import { FaTrash } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
+import { BsPlusCircle } from "react-icons/bs";
 
 const fieldMappings = {
   disciplinas: {
@@ -119,8 +120,17 @@ export function Tables({ activeView, isGestor }) {
         })}
         {isGestor && (
           <td className="actions">
-            <button onClick={() => handleEdit(item)}><MdModeEdit className='icons-table'/></button>
-            <button onClick={() => handleDelete(item.id)}><FaTrash className='icons-table'/></button>
+            <button onClick={() => handleEdit(item)}>
+              <span title='Editar'>
+
+              </span>
+              <MdModeEdit className='icons-table'/>
+            </button>
+            <button onClick={() => handleDelete(item.id)}>
+              <span title='Excluir'>
+                <FaTrash className='icons-table'/>
+              </span>
+            </button>
           </td>
         )}
       </tr>
@@ -148,7 +158,7 @@ export function Tables({ activeView, isGestor }) {
     <div className="table-container">
       {isGestor && (
         <div className="table-actions">
-          <button onClick={handleCreate} className='default-button'>Cadastrar</button>
+          <button onClick={handleCreate}><BsPlusCircle className='icon-plus'/>Cadastrar</button>
         </div>
       )}
       <table>

@@ -5,12 +5,11 @@ import { Footer } from "../../components/footer/Footer"
 import './index.css'
 
 export function Index() {
-
-    return (
-      <>
-        <Nav />
-        <Outlet />
-        <Footer />
-      </>
-    )
-  }
+  return (
+    <>
+      <Nav />
+      <Outlet />
+      <Footer />
+    </>
+  )
+}

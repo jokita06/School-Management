@@ -65,7 +65,7 @@
     font-weight: 500;
 }
 
-@media (min-width: 1920px) {
+@media (max-width: 1920px) {
     .login-form {
         gap: 1.7rem;
         padding: 2rem;

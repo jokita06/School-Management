@@ -94,9 +94,12 @@
 }
 
 /* Responsivo */
-@media (mix-width: 1920px) {
+@media (max-width: 1920px) {
     
-    
+    .footer-content {
+        max-width: 1600px;
+    }
+
     .footer-text {
         font-size: 1.4rem;
         margin-bottom: 8px;

@@ -24,7 +24,7 @@ export function Nav() {
                 </nav>
 
                 <button className={"default-buttons " + "btn-login"}>
-                    <Link className='btn-login-link' to='/login'>Login</Link>
+                    <Link className='btn-login-link' to='/login'>Entrar</Link>
                 </button>
             </div>
         

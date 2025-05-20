@@ -77,12 +77,22 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'GestaoEscolar',
+#         'USER': 'root',
+#         'PASSWORD': 'Roubandoinfo.06',
+#         'PORT': '3306'
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'GestaoEscolar',
         'USER': 'root',
-        'PASSWORD': 'Roubandoinfo.06',
+        'PASSWORD': 'senai',
         'PORT': '3306'
     }
 }

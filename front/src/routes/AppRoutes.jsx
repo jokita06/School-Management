@@ -40,7 +40,6 @@ export function AppRoutes() {
                 <Route index element={<Home />} />
                 <Route path='home' element={<Home />} />
                 <Route path='login' element={<Login />} />
-                
             </Route>
 
             // Rotas privadas

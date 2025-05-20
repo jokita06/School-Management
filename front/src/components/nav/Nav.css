@@ -3,6 +3,9 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    z-index: 10;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .conteudo-nav {
@@ -50,7 +53,7 @@
     width: 5rem;
 }
 
-@media (min-width: 1920px) {
+@media (max-width: 1920px) {
     .conteudo-nav {
         display: flex;
         width: 60%;
@@ -76,7 +79,7 @@
     }
     
     .btn-login {
-        padding: 0.7rem 1.4rem;
+        padding: 0.5rem 2rem;
         border-radius: 1.3rem;
     }
     
