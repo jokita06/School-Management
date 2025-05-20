@@ -23,7 +23,7 @@ export function Nav() {
                     </ul>
                 </nav>
 
-                <button className='btn-login'>
+                <button className={"default-buttons " + "btn-login"}>
                     <Link className='btn-login-link' to='/login'>Login</Link>
                 </button>
             </div>

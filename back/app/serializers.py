@@ -6,7 +6,7 @@ class FuncionarioSerializer(serializers.ModelSerializer):
     full_name = serializers.SerializerMethodField()
     class Meta:
         model = Funcionario
-        fields = ['id', 'NI', 'username',  'email', 'telefone', 'dt_nascimento', 'cargo', 'full_name', 'data_contratacao'] 
+        fields = ['id', 'NI', 'username', 'email', 'telefone', 'dt_nascimento', 'cargo', 'full_name', 'data_contratacao'] 
     def get_full_name(self,obj):
         return obj.get_full_name()
 

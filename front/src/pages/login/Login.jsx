@@ -53,7 +53,7 @@ export function Login() {
           placeholder="Senha"
         />
         <div>
-          <button className='login-button' type="submit">Entrar</button>
+          <button className={"default-buttons " + "login-button"} type="submit">Entrar</button>
         </div>
         
       </form>

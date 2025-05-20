@@ -69,7 +69,7 @@ export function AcessPage() {
                     {activeView === 'ambientes' && 'Ambientes de Aula'}
                     {activeView === 'funcionarios' && 'Funcionários'}
                 </h1>
-                <Tables activeView={activeView} />
+                <Tables activeView={activeView} isGestor={isGestor()} />
             </div>
         </main>
     );

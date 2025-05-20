@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Tables.css';
 import api from '../../services/api';
+import { Modal } from '../modal/Modal';
+import { DisciplineForm, EmployeeForm, EnvironmentForm } from '../forms/Forms'
+import { FaTrash } from "react-icons/fa";
+import { MdModeEdit } from "react-icons/md";
 
 const fieldMappings = {
   disciplinas: {
@@ -13,7 +17,7 @@ const fieldMappings = {
   },
   ambientes: {
     endpoint: 'ambientes/',
-    fields: ['sala_reservada', 'disciplina','dt_inicio', 'dt_termino', 'periodo', 'professor'], 
+    fields: ['sala_reservada', 'disciplina', 'dt_inicio', 'dt_termino', 'periodo', 'professor'],
     fieldNames: ['Sala', 'Disciplina', 'Data Início', 'Data Término', 'Período', 'Professor'],
     formatField: {
       periodo: (p) => ({ 'M': 'Manhã', 'T': 'Tarde', 'N': 'Noite' }[p] || p),
@@ -31,10 +35,13 @@ const fieldMappings = {
   }
 };
 
-export function Tables({ activeView }) {
+export function Tables({ activeView, isGestor }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentItem, setCurrentItem] = useState(null);
+  const [action, setAction] = useState('create');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +66,31 @@ export function Tables({ activeView }) {
     };
 
     fetchData();
-  }, [activeView]);
+  }, [activeView, isModalOpen]);
+
+  const handleCreate = () => {
+    setAction('create');
+    setCurrentItem(null);
+    setIsModalOpen(true);
+  };
+
+  const handleEdit = (item) => {
+    setAction('edit');
+    setCurrentItem(item);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const config = fieldMappings[activeView];
+      await api.delete(`${config.endpoint}${id}/`);
+      // Atualiza os dados após deletar
+      const response = await api.get(config.endpoint);
+      setData(response.data);
+    } catch (err) {
+      setError(err.response?.data?.detail || err.message || 'Erro ao deletar');
+    }
+  };
 
   const renderTableHeaders = () => {
     const config = fieldMappings[activeView];
@@ -77,7 +108,6 @@ export function Tables({ activeView }) {
     return data.map((item, rowIndex) => (
       <tr key={rowIndex}>
         {config.fields.map((field, colIndex) => {
-          // Formatação especial se existir
           if (config.formatField && config.formatField[field]) {
             return (
               <td key={colIndex}>
@@ -85,12 +115,29 @@ export function Tables({ activeView }) {
               </td>
             );
           }
-          
-          // Valor padrão se não existir
           return <td key={colIndex}>{item[field] ?? 'N/A'}</td>;
         })}
+        {isGestor && (
+          <td className="actions">
+            <button onClick={() => handleEdit(item)}><MdModeEdit className='icons-table'/></button>
+            <button onClick={() => handleDelete(item.id)}><FaTrash className='icons-table'/></button>
+          </td>
+        )}
       </tr>
     ));
+  };
+
+  const renderForm = () => {
+    switch (activeView) {
+      case 'disciplinas':
+        return <DisciplineForm item={currentItem} action={action} onClose={() => setIsModalOpen(false)} />;
+      case 'ambientes':
+        return <EnvironmentForm item={currentItem} action={action} onClose={() => setIsModalOpen(false)} />;
+      case 'funcionarios':
+        return <EmployeeForm item={currentItem} action={action} onClose={() => setIsModalOpen(false)} />;
+      default:
+        return null;
+    }
   };
 
   if (loading) return <div className="loading-message">Carregando...</div>;
@@ -99,16 +146,28 @@ export function Tables({ activeView }) {
 
   return (
     <div className="table-container">
+      {isGestor && (
+        <div className="table-actions">
+          <button onClick={handleCreate} className='default-button'>Cadastrar</button>
+        </div>
+      )}
       <table>
         <thead>
           <tr>
             {renderTableHeaders()}
+            {isGestor && <th>Ações</th>}
           </tr>
         </thead>
         <tbody>
           {renderTableRows()}
         </tbody>
       </table>
+      
+      {isModalOpen && (
+        <Modal onClose={() => setIsModalOpen(false)}>
+          {renderForm()}
+        </Modal>
+      )}
     </div>
   );
 }

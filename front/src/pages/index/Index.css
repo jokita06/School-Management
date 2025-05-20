@@ -16,7 +16,7 @@
     font-style: normal;
 }
 
-button {
+/* button {
     background-color: var(--botoes-links);
     border: none;
     color: white;
@@ -25,5 +25,17 @@ button {
 }
 
 button:hover {
+    background-color: var(--botoes-links-hover);
+} */
+
+.default-buttons {
+    background-color: var(--botoes-links);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.default-buttons:hover {
     background-color: var(--botoes-links-hover);
 }
