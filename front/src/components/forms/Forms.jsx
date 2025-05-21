@@ -43,7 +43,7 @@ export function DisciplineForm({ item, action, onClose }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form  className='form-dashboard' onSubmit={handleSubmit}>
       <h2>{action === 'create' ? 'Adicionar' : 'Editar'} Disciplina</h2>
       <div>
         <label>Nome:</label>
