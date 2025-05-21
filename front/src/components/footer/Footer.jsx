@@ -4,7 +4,6 @@ import { FaGithub, FaLinkedin, FaHeart } from 'react-icons/fa'
 export function Footer() {
     return (
         <footer className="site-footer">
-            <div className="footer-wave"></div>
             <div className="footer-content">
                 <div className="footer-main">
                     <div className="footer-brand">

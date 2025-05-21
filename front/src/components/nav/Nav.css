@@ -33,7 +33,6 @@
     cursor: pointer;
 }
 
-/* Estilo para link ativo */
 .nav-link.active {
     font-weight: bold;
     color: #007bff;
@@ -53,6 +52,9 @@
     width: 5rem;
 }
 
+/* Responsividade */
+
+/* 1920px */
 @media (max-width: 1920px) {
     .conteudo-nav {
         display: flex;
@@ -72,7 +74,6 @@
         font-size: 1.2rem;
     }
     
-    /* Estilo para link ativo */
     .nav-link.active {
         font-weight: bold;
         color: #007bff;
@@ -89,5 +90,17 @@
 
     .logo {
         width: 27rem;
+    }
+}
+
+/* 1366px */
+@media (min-width: 1366px) {
+    .btn-login {
+        padding: 0.2rem 1.4rem;
+        border-radius: 1.3rem;
+    }
+
+    .nav-link {
+        font-size: 1.1rem;
     }
 }

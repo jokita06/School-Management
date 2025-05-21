@@ -1,6 +1,5 @@
 import './Home.css';
 import Banner from '../../assets/Education.svg';
-import Logo from '../../assets/react.svg'
 import { FaHandHoldingHeart, FaEye } from "react-icons/fa";
 import { TbTargetArrow } from "react-icons/tb";
 
@@ -19,7 +18,7 @@ export function Home() {
 
         {/* About us section */}
         <section className="about-section">
-          <h2 className='services-title'>Sobre nós</h2>
+          <h2 className='section-titles'>Sobre nós</h2>
           
           <div className='process-container'>
             <div className='process-line'></div>
@@ -54,7 +53,7 @@ export function Home() {
 
         {/* Services section */}
         <section className='services-section'>
-          <h2 className='services-title'>Nossos Serviços</h2>
+          <h2 className='section-titles'>Nossos Serviços</h2>
           <div className='services-container'>
             <div className='service-card'>
               <h3>Gestão de Funcionários</h3>
