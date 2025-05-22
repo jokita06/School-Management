@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import FuncionarioSerializer, AmbienteAulaSerializer, DisciplinaSerializer, LoginSerializer
-from .models import Funcionario, Disciplina, AmbienteAula
+from .serializers import FuncionarioSerializer, SalaDeAulaSerializer, AmbienteAulaSerializer, DisciplinaSerializer, LoginSerializer
+from .models import Funcionario, Disciplina, AmbienteAula, SalaDeAula
 from .permissions import permissao_gestor
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import permissions
@@ -21,6 +21,26 @@ class Funcionario_GET_PUT_PATCH_DELETE(RetrieveUpdateDestroyAPIView):
     serializer_class = FuncionarioSerializer
     permission_classes = [permissao_gestor] # Apenas o gestor pode efetuar 
     lookup_field = 'pk' # Define que a busca será feita pela chave primária
+
+# Listar e criar salas de aula
+class Sala_GET_POST(ListCreateAPIView):
+    queryset = SalaDeAula.objects.all()
+    serializer_class = SalaDeAulaSerializer
+    
+    def get_permissions(self):
+
+        # Se o metódo for GET todos os que estão autenticados podem ver
+        if self.request.method == 'GET':
+            return [permissions.IsAuthenticated()]
+        # Caso contrário, apenas o gestar podem criar
+        return [permissao_gestor()]
+
+# Mostrar (id), atualizar e deletar uma sala de aula
+class Sala_GET_PUT_PATCH_DELETE(RetrieveUpdateDestroyAPIView):
+    queryset = SalaDeAula.objects.all()
+    serializer_class = SalaDeAulaSerializer
+    permission_classes = [permissao_gestor]
+    lookup_field = 'pk'
 
 # Listar e Criar disciplina
 class Disciplina_GET_POST(ListCreateAPIView):
