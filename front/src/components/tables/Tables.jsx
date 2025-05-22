@@ -5,7 +5,6 @@ import { Modal } from '../modal/Modal';
 import { DisciplineForm, EmployeeForm, EnvironmentForm } from '../forms/Forms'
 import { FaTrash } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
-import { BsPlusCircle } from "react-icons/bs";
 
 const fieldMappings = {
   disciplinas: {
@@ -158,7 +157,7 @@ export function Tables({ activeView, isGestor }) {
     <div className="table-container">
       {isGestor && (
         <div className="table-actions">
-          <button onClick={handleCreate}><BsPlusCircle className='icon-plus'/>Cadastrar</button>
+          <button onClick={handleCreate}>Cadastrar</button>
         </div>
       )}
       <table>

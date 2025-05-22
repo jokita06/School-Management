@@ -78,6 +78,7 @@ form textarea {
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    resize: none;
 }
 
 .form-dashboard button[type="submit"] {
@@ -92,9 +93,3 @@ form h2 {
     text-align: center;
     font-weight: 600;
 }
-
-.icon-plus {
-    font-size: 1.8rem;
-    margin-right: 10px;
-}
-

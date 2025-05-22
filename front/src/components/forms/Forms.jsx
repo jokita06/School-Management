@@ -211,7 +211,7 @@ export function EnvironmentForm({ item, action, onClose }) {
   useEffect(() => {
     const fetchData = async () => {
       const [salasRes, disciplinasRes, professoresRes] = await Promise.all([
-        api.get('salas/'),
+        api.get('ambientes/'),
         api.get('disciplinas/'),
         api.get('funcionarios/?cargo=P')
       ]);
