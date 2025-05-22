@@ -95,23 +95,28 @@ export function EmployeeForm({ item, action, onClose }) {
   const [formData, setFormData] = useState({
     NI: '',
     username: '',
-    full_name: '',
+    first_name: '',
+    last_name: '',
     email: '',
     telefone: '',
     data_contratacao: '',
-    cargo: 'P'
+    cargo: 'P',
+    password: '',
   });
 
   useEffect(() => {
     if (item) {
+      
       setFormData({
         NI: item.NI || '',
         username: item.username || '',
-        full_name: item.full_name || '',
+        first_name: item.first_name || '',
+        last_name : item.last_name || '',
         email: item.email || '',
         telefone: item.telefone || '',
         data_contratacao: item.data_contratacao || '',
-        cargo: item.cargo || 'P'
+        cargo: item.cargo || 'P',
+        password: item.password || '',
       });
     }
   }, [item]);
@@ -120,7 +125,9 @@ export function EmployeeForm({ item, action, onClose }) {
     e.preventDefault();
     try {
       if (action === 'create') {
+        
         await api.post('funcionarios/', formData);
+
       } else {
         await api.put(`funcionarios/${item.id}/`, formData);
       }
@@ -143,11 +150,30 @@ export function EmployeeForm({ item, action, onClose }) {
         />
       </div>
       <div>
-        <label>Nome Completo:</label>
+        <label>Username:</label>
         <input
           type="text"
-          value={formData.full_name}
-          onChange={(e) => setFormData({...formData, full_name: e.target.value})}
+          value={formData.username}
+          onChange={(e) => setFormData({...formData, username: e.target.value})}
+          required
+        />
+      </div>
+      <div>
+        <label>Nome:</label>
+        <input
+          type="text"
+          value={formData.first_name}
+          onChange={(e) => setFormData({...formData, first_name: e.target.value})}
+          required
+        />
+      </div>
+
+      <div>
+        <label>Sobrenome:</label>
+        <input
+          type="text"
+          value={formData.last_name}
+          onChange={(e) => setFormData({...formData, last_name: e.target.value})}
           required
         />
       </div>
@@ -189,6 +215,16 @@ export function EmployeeForm({ item, action, onClose }) {
           <option value="P">Professor</option>
           <option value="G">Gestor</option>
         </select>
+      </div>
+
+      <div>
+        <label>Senha:</label>
+        <input
+          type="password"
+          value={formData.password}
+          onChange={(e) => setFormData({...formData, password: e.target.value})}
+          required
+        />
       </div>
       <button type="submit">Salvar</button>
     </form>
