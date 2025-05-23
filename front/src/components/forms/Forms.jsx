@@ -247,7 +247,7 @@ export function EnvironmentForm({ item, action, onClose }) {
   useEffect(() => {
     const fetchData = async () => {
       const [salasRes, disciplinasRes, professoresRes] = await Promise.all([
-        api.get('ambientes/'),
+        api.get('salas/'),
         api.get('disciplinas/'),
         api.get('funcionarios/?cargo=P')
       ]);
@@ -273,9 +273,9 @@ export function EnvironmentForm({ item, action, onClose }) {
     e.preventDefault();
     try {
       if (action === 'create') {
-        await api.post('ambientes/', formData);
+        await api.post('salas/', formData);
       } else {
-        await api.put(`ambientes/${item.id}/`, formData);
+        await api.put(`salas/${item.id}/`, formData);
       }
       onClose();
     } catch (error) {

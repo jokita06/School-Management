@@ -43,7 +43,7 @@ class FuncionarioSerializer(serializers.ModelSerializer):
 class SalaDeAulaSerializer(serializers.ModelSerializer):
     class Meta:
         model = SalaDeAula
-        fields = ['__all__']
+        fields = ['nome']
 
 class DisciplinaSerializer(serializers.ModelSerializer):
     professor = serializers.PrimaryKeyRelatedField(queryset=Funcionario.objects.filter(cargo='P'))
@@ -59,13 +59,19 @@ class DisciplinaSerializer(serializers.ModelSerializer):
         }
 
 class AmbienteAulaSerializer(serializers.ModelSerializer):
-    professor = serializers.StringRelatedField()
-    disciplina = serializers.SerializerMethodField()
-    sala_reservada = serializers.SerializerMethodField()
+    sala_reservada = serializers.PrimaryKeyRelatedField(
+        queryset=SalaDeAula.objects.all()
+    )
+    disciplina = serializers.PrimaryKeyRelatedField(
+        queryset=Disciplina.objects.all()
+    )
+    professor = serializers.PrimaryKeyRelatedField(
+        queryset=Funcionario.objects.filter(cargo='P')
+    )
     
     class Meta:
         model = AmbienteAula
-        fields = ['sala_reservada', 'disciplina', 'dt_inicio', 'dt_termino', 'periodo', 'professor']
+        fields = ['id', 'sala_reservada', 'disciplina', 'dt_inicio', 'dt_termino', 'periodo', 'professor']
 
     def get_disciplina(self, obj):
         return obj.disciplina.nome if obj.disciplina else None
