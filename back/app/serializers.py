@@ -46,10 +46,17 @@ class SalaDeAulaSerializer(serializers.ModelSerializer):
         fields = ['__all__']
 
 class DisciplinaSerializer(serializers.ModelSerializer):
-    professor = serializers.StringRelatedField()
+    professor = serializers.PrimaryKeyRelatedField(queryset=Funcionario.objects.filter(cargo='P'))
+    
     class Meta:
         model = Disciplina
-        fields = ['nome', 'carga_horaria', 'descricao', 'professor_id', 'professor']
+        fields = ['id', 'nome', 'carga_horaria', 'descricao', 'professor']
+        extra_kwargs = {
+            'nome': {'required': True},
+            'carga_horaria': {'required': True},
+            'descricao': {'required': True},
+            'professor': {'required': True}
+        }
 
 class AmbienteAulaSerializer(serializers.ModelSerializer):
     professor = serializers.StringRelatedField()

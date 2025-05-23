@@ -6,7 +6,7 @@ export function DisciplineForm({ item, action, onClose }) {
     nome: '',
     carga_horaria: '',
     descricao: '',
-    professor: ''
+    professor: '',
   });
   const [professores, setProfessores] = useState([]);
 
