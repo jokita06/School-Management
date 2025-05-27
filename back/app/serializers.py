@@ -46,11 +46,12 @@ class SalaDeAulaSerializer(serializers.ModelSerializer):
         fields = ['id', 'nome']
 
 class DisciplinaSerializer(serializers.ModelSerializer):
-    professor = serializers.PrimaryKeyRelatedField(queryset=Funcionario.objects.filter(cargo='P'))
-    
+    professor = serializers.StringRelatedField()
+
     class Meta:
         model = Disciplina
         fields = ['id', 'nome', 'carga_horaria', 'descricao', 'professor']
+        
         extra_kwargs = {
             'nome': {'required': True},
             'carga_horaria': {'required': True},
@@ -58,26 +59,15 @@ class DisciplinaSerializer(serializers.ModelSerializer):
             'professor': {'required': True}
         }
 
-class AmbienteAulaSerializer(serializers.ModelSerializer):
-    sala_reservada = serializers.PrimaryKeyRelatedField(
-        queryset=SalaDeAula.objects.all()
-    )
-    disciplina = serializers.PrimaryKeyRelatedField(
-        queryset=Disciplina.objects.all()
-    )
-    professor = serializers.PrimaryKeyRelatedField(
-        queryset=Funcionario.objects.filter(cargo='P')
-    )
-    
+class AmbienteAulaSerializer(serializers.ModelSerializer):    
+    sala_reservada = serializers.StringRelatedField()
+    disciplina = serializers.StringRelatedField()
+    professor = serializers.StringRelatedField()
+
     class Meta:
         model = AmbienteAula
         fields = ['id', 'sala_reservada', 'disciplina', 'dt_inicio', 'dt_termino', 'periodo', 'professor']
 
-    def get_disciplina(self, obj):
-        return obj.disciplina.nome if obj.disciplina else None
-
-    def get_sala_reservada(self, obj):
-        return obj.sala_reservada.nome if obj.sala_reservada else None
 
 class LoginSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
