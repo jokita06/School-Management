@@ -91,6 +91,51 @@ export function DisciplineForm({ item, action, onClose }) {
   );
 }
 
+export function ClassroomForm({item, action, onChange}) {
+  const [formData, setFormData] = useState({
+    nome: '',
+  });
+
+  useEffect(() => {
+    if (item) {
+      setFormData({
+        nome: item.nome,
+      });
+    }
+  }, [item]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (action === 'create') {
+        await api.post('salas/', formData);
+      } else {
+        await api.put(`salas/${item.id}`, formData);
+      }
+      onClose();
+    } catch (error) {
+      console.error('Erro ao salvar sala de aula:', error)
+    }
+  };
+
+  return (
+    <form className='form-dashboard' onSubmit={handleSubmit}>
+      <h2>{action === 'create' ? 'Adicionar' : 'Editar'}Sala</h2>
+      <div>
+        <label>
+          <input 
+          type="text" 
+          value={formData.nome}
+          onChange={(e) => setFormData({...formData, nome: e.target.value})}
+          required
+          />
+        </label>
+      </div>
+      <button type='submit'>Salvar</button>
+    </form>
+  )
+}
+
 export function EmployeeForm({ item, action, onClose }) {
   const [formData, setFormData] = useState({
     NI: '',

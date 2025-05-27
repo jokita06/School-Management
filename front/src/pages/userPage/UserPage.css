@@ -5,10 +5,13 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+
+
 .main-login {
     display: flex;
     min-height: 100vh;
     background-color: #f6f6f6;
+    overflow: auto;
 }
 
 .sideBar {

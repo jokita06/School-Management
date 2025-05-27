@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Tables.css';
 import api from '../../services/api';
 import { Modal } from '../modal/Modal';
-import { DisciplineForm, EmployeeForm, EnvironmentForm } from '../forms/Forms'
+import { DisciplineForm, EmployeeForm, EnvironmentForm, ClassroomForm } from '../forms/Forms'
 import { FaTrash } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
 
@@ -32,6 +32,12 @@ const fieldMappings = {
     formatField: {
       cargo: (value) => value === 'G' ? 'Gestor' : 'Professor'
     }
+  },
+
+  salas: {
+    endpoint: 'salas/',
+    fields: ['nome'],
+    fieldNames: ['Nome'],
   }
 };
 
@@ -144,6 +150,8 @@ export function Tables({ activeView, isGestor }) {
         return <EnvironmentForm item={currentItem} action={action} onClose={() => setIsModalOpen(false)} />;
       case 'funcionarios':
         return <EmployeeForm item={currentItem} action={action} onClose={() => setIsModalOpen(false)} />;
+      case 'salas':
+        return <ClassroomForm item={currentItem} action={action} onClose={() => setIsModalOpen(false)} />;
       default:
         return null;
     }

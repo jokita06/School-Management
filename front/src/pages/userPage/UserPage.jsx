@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Tables } from '../../components/tables/Tables';
 import { FaHome, FaBook, FaChalkboardTeacher, FaUsers, FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { LuClipboardPen } from "react-icons/lu";
 import './UserPage.css'
 
 export function AcessPage() {
@@ -45,15 +46,22 @@ export function AcessPage() {
                     </div>
                     
                     <div className='item' onClick={() => handleViewChange('ambientes')}>
-                        <FaChalkboardTeacher style={{ marginRight: '10px' }} />
+                        <LuClipboardPen style={{ marginRight: '10px' }} />
                         Ambiente de Aula
                     </div>
                     
                     {isGestor() && (
-                        <div className='item' onClick={() => handleViewChange('funcionarios')}>
-                            <FaUsers style={{ marginRight: '10px' }} />
-                            Funcionários
-                        </div>
+                        <>
+                            <div className='item' onClick={() => handleViewChange('salas')}>
+                                <FaChalkboardTeacher style={{ marginRight: '10px' }} />
+                                Salas de Aula
+                            </div>
+
+                            <div className='item' onClick={() => handleViewChange('funcionarios')}>
+                                <FaUsers style={{ marginRight: '10px' }} />
+                                Funcionários
+                            </div>
+                        </>
                     )}
                 </div>
                 
@@ -68,6 +76,7 @@ export function AcessPage() {
                     {activeView === 'disciplinas' && 'Disciplinas'}
                     {activeView === 'ambientes' && 'Ambientes de Aula'}
                     {activeView === 'funcionarios' && 'Funcionários'}
+                    {activeView === 'salas' && 'Salas de Aula'}
                 </h1>
                 <Tables activeView={activeView} isGestor={isGestor()} />
             </div>
