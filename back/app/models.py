@@ -92,6 +92,13 @@ class AmbienteAula(models.Model):
         # Validação datas
         if self.dt_termino < self.dt_inicio:
             raise ValidationError("A data de término deve ser posterior à data de início!")
+
+        hoje = date.today()
+
+        # Validação de reserva
+        if self.dt_inicio < hoje:
+            raise ValidationError("A data de reserva não pode ser no passado.")
+
         
         # Validação de conflito de reserva 
         queryset = AmbienteAula.objects.filter(

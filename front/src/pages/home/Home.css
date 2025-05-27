@@ -149,7 +149,7 @@ object-fit: cover;
   }
 
   .about-section {
-    padding: 6rem 3rem;
+    padding: 8.5rem 3rem;
     gap: 3.5rem;
   }
   
@@ -183,7 +183,7 @@ object-fit: cover;
   }
 
   .services-section {
-    padding: 6rem 2rem;
+    padding: 8.5rem 2rem;
     gap: 4rem;
   }
   
@@ -215,31 +215,3 @@ object-fit: cover;
   }
 }
 
-/* 1366px */
-@media (min-width:1366px) {
-  
-  .section-titles {
-    font-size: 2.3rem;
-  }
-
-  .service-card h3 {
-    font-size: 1.4rem;
-  }
-
-  .process-card h3 {
-    font-size: 1.4rem;
-  }
-
-  .service-card p {
-    font-size: 1.1rem;
-  }
-
-  .process-card p {
-    font-size: 1.1rem;
-  }
-
-  .process-icon {
-    width: 60px;
-    height: 60px;
-  }
-}

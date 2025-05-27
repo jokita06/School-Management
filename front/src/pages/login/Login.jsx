@@ -3,6 +3,16 @@ import Teacher from '../../assets/Teacher.svg'
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import './Login.css'
+import { z } from "zod";
+
+const schemaResolver = z.object({
+  username: z
+    .string()
+    .min(1, 'Informe o username'),
+  password: z
+    .string()
+    .min(1), 'Informe a senha'
+});
 
 export function Login() {
   const [username, setUsername] = useState('');

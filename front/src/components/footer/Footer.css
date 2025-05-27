@@ -115,31 +115,3 @@
         font-size: 1.1rem;
     }
 }
-
-/* 1366px */
-@media (min-width:1366px) {
-    .footer-content {
-        max-width: 1200px;
-    }
-
-    .footer-text {
-        font-size: 1.1rem;
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .footer-bottom {
-        font-size: 0.9rem;
-    }
-
-    .social-link {
-        gap: 8px;
-        font-size: 0.9rem;
-    }
-
-    .footer-subtext {
-        font-size: 0.9rem;
-    } 
-}
