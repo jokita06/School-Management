@@ -89,6 +89,7 @@ export function Tables({ activeView, isGestor }) {
     try {
       const config = fieldMappings[activeView];
       await api.delete(`${config.endpoint}${id}/`);
+      
       // Atualiza os dados após deletar
       const response = await api.get(config.endpoint);
       setData(response.data);

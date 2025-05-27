@@ -43,7 +43,7 @@ class FuncionarioSerializer(serializers.ModelSerializer):
 class SalaDeAulaSerializer(serializers.ModelSerializer):
     class Meta:
         model = SalaDeAula
-        fields = ['nome']
+        fields = ['id', 'nome']
 
 class DisciplinaSerializer(serializers.ModelSerializer):
     professor = serializers.PrimaryKeyRelatedField(queryset=Funcionario.objects.filter(cargo='P'))

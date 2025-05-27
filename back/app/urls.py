@@ -13,7 +13,7 @@ urlpatterns = [
 
     # Salas De Aula
     path('salas/', Sala_GET_POST.as_view()),
-    path('salas/<int:pk>', Sala_GET_PUT_PATCH_DELETE.as_view()),
+    path('salas/<int:pk>/', Sala_GET_PUT_PATCH_DELETE.as_view()),
     
     # Disciplinas
     path('disciplinas/', Disciplina_GET_POST.as_view()),

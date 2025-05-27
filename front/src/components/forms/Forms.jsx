@@ -169,7 +169,6 @@ export function EmployeeForm({ item, action, onClose }) {
     e.preventDefault();
     try {
       if (action === 'create') {
-        
         await api.post('funcionarios/', formData);
 
       } else {
