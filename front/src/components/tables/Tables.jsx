@@ -33,12 +33,11 @@ const fieldMappings = {
       cargo: (value) => value === 'G' ? 'Gestor' : 'Professor'
     }
   },
-
   salas: {
     endpoint: 'salas/',
     fields: ['nome'],
     fieldNames: ['Nome'],
-  }
+  },
 };
 
 export function Tables({ activeView, isGestor }) {

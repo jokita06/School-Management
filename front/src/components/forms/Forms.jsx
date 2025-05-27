@@ -91,7 +91,7 @@ export function DisciplineForm({ item, action, onClose }) {
   );
 }
 
-export function ClassroomForm({item, action, onChange}) {
+export function ClassroomForm({ item, action, onClose }) {
   const [formData, setFormData] = useState({
     nome: '',
   });
@@ -99,7 +99,7 @@ export function ClassroomForm({item, action, onChange}) {
   useEffect(() => {
     if (item) {
       setFormData({
-        nome: item.nome,
+        nome: item.nome || '',
       });
     }
   }, [item]);
@@ -110,30 +110,29 @@ export function ClassroomForm({item, action, onChange}) {
       if (action === 'create') {
         await api.post('salas/', formData);
       } else {
-        await api.put(`salas/${item.id}`, formData);
+        await api.put(`salas/${item.id}/`, formData);
       }
       onClose();
     } catch (error) {
-      console.error('Erro ao salvar sala de aula:', error)
+      console.error('Erro ao salvar sala de aula:', error);
     }
   };
 
   return (
     <form className='form-dashboard' onSubmit={handleSubmit}>
-      <h2>{action === 'create' ? 'Adicionar' : 'Editar'}Sala</h2>
+      <h2>{action === 'create' ? 'Adicionar' : 'Editar'} Sala</h2>
       <div>
-        <label>
-          <input 
+        <label>Nome da Sala:</label>
+        <input 
           type="text" 
           value={formData.nome}
           onChange={(e) => setFormData({...formData, nome: e.target.value})}
           required
-          />
-        </label>
+        />
       </div>
       <button type='submit'>Salvar</button>
     </form>
-  )
+  );
 }
 
 export function EmployeeForm({ item, action, onClose }) {
@@ -318,9 +317,9 @@ export function EnvironmentForm({ item, action, onClose }) {
     e.preventDefault();
     try {
       if (action === 'create') {
-        await api.post('salas/', formData);
+        await api.post('ambientes/', formData);
       } else {
-        await api.put(`salas/${item.id}/`, formData);
+        await api.put(`ambientes/${item.id}/`, formData);
       }
       onClose();
     } catch (error) {
