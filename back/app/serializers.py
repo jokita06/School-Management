@@ -64,16 +64,16 @@ class DisciplinaSerializer(serializers.ModelSerializer):
 class AmbienteAulaSerializer(serializers.ModelSerializer):    
     sala_reservada = serializers.PrimaryKeyRelatedField(queryset=SalaDeAula.objects.all(), many=False)
     disciplina = serializers.PrimaryKeyRelatedField(queryset=Disciplina.objects.all(), many=False)
-    professor = serializers.PrimaryKeyRelatedField(queryset=Funcionario.objects.all(), many=False)
-    
-    # sala_reservada = serializers.StringRelatedField()
-    # disciplina = serializers.StringRelatedField()
-    # professor = serializers.StringRelatedField()
+    #professor = serializers.SlugRelatedField(queryset=Funcionario.objects.all(), slug_field="id")
 
     class Meta:
         model = AmbienteAula
         fields = ['id', 'sala_reservada', 'disciplina', 'dt_inicio', 'dt_termino', 'periodo', 'professor']
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['professor'] = f"{Funcionario.objects.get(id=representation['professor']).get_full_name()}"
+        return representation
 
 class LoginSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
