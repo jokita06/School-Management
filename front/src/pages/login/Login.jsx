@@ -11,16 +11,33 @@ const schemaResolver = z.object({
     .min(1, 'Informe o username'),
   password: z
     .string()
-    .min(1), 'Informe a senha'
+    .min(1, 'Informe a senha')
 });
 
 export function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate form
+    try {
+      schemaResolver.parse({ username, password });
+      setErrors({});
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errorMap = {};
+        error.errors.forEach(err => {
+          errorMap[err.path[0]] = err.message;
+        });
+        setErrors(errorMap);
+        return;
+      }
+    }
+    
     try {
       const response = await api.post('/login/', { 
         username, password 
@@ -48,24 +65,30 @@ export function Login() {
     <main className="login-page">
       <form className='login-form' onSubmit={handleSubmit}>
         <h1 className='login-title'>Entre na sua conta</h1>
-        <input
-          className='login-input'
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Usuário"
-        />
-        <input
-          className='login-input'
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Senha"
-        />
+        <div className="input-container">
+          <input
+            className={`login-input ${errors.username ? 'error' : ''} ${!errors.username && username ? 'success' : ''}`}
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Usuário"
+          />
+          {errors.username && <span className="error-message">{errors.username}</span>}
+        </div>
+
+        <div className="input-container">
+          <input
+            className={`login-input ${errors.password ? 'error' : ''} ${!errors.password && password ? 'success' : ''}`}
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Senha"
+          />
+          {errors.password && <span className="error-message">{errors.password}</span>}
+        </div>
         <div>
           <button className={"default-buttons " + "login-button"} type="submit">Entrar</button>
         </div>
-        
       </form>
 
       <div className='login-image-container'>
