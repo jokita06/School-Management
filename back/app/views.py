@@ -60,7 +60,7 @@ class Disciplina_GET_POST(ListCreateAPIView):
         if user.cargo == 'P':
             return Disciplina.objects.filter(professor=user)
         return Disciplina.objects.all()
-    
+
 # Mostrar (id), atualizar e deletar um Disciplina
 class Disciplina_GET_PUT_PATCH_DELETE(RetrieveUpdateDestroyAPIView):
     queryset = Disciplina.objects.all()

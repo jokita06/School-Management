@@ -28,7 +28,7 @@ class Funcionario(AbstractUser):
                 message='Formato (00)00000-0000'
             )
         ],
-        help_text="O telefone deve seguit o formato (00)00000-0000"
+        help_text="O telefone deve seguir o formato (00)00000-0000"
     )
     
     tipo_cargo = [

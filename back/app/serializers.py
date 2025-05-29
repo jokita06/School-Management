@@ -14,6 +14,7 @@ class FuncionarioSerializer(serializers.ModelSerializer):
             NI = validated_data['NI'],
             username = validated_data['username'],
             telefone = validated_data['telefone'],
+            dt_nascimento = validated_data['dt_nascimento'],
             email = validated_data['email'],
             cargo = validated_data['cargo'],
             first_name = validated_data['first_name'],
@@ -46,7 +47,8 @@ class SalaDeAulaSerializer(serializers.ModelSerializer):
         fields = ['id', 'nome']
 
 class DisciplinaSerializer(serializers.ModelSerializer):
-    professor = serializers.StringRelatedField()
+    # professor = serializers.StringRelatedField()
+    professor = serializers.PrimaryKeyRelatedField(queryset=Funcionario.objects.all(), many=False)
 
     class Meta:
         model = Disciplina
@@ -60,9 +62,13 @@ class DisciplinaSerializer(serializers.ModelSerializer):
         }
 
 class AmbienteAulaSerializer(serializers.ModelSerializer):    
-    sala_reservada = serializers.StringRelatedField()
-    disciplina = serializers.StringRelatedField()
-    professor = serializers.StringRelatedField()
+    sala_reservada = serializers.PrimaryKeyRelatedField(queryset=SalaDeAula.objects.all(), many=False)
+    disciplina = serializers.PrimaryKeyRelatedField(queryset=Disciplina.objects.all(), many=False)
+    professor = serializers.PrimaryKeyRelatedField(queryset=Funcionario.objects.all(), many=False)
+    
+    # sala_reservada = serializers.StringRelatedField()
+    # disciplina = serializers.StringRelatedField()
+    # professor = serializers.StringRelatedField()
 
     class Meta:
         model = AmbienteAula
