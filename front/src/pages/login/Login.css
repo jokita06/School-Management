@@ -28,21 +28,6 @@
   align-items: center;
 }
 
-.login-input {
-  border: 1px solid #ddd;
-  padding: 0.8rem 1rem;
-  border-radius: 0.5rem;
-  outline: none;
-  width: 100%;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.login-input:focus {
-  border-color: #319869;
-  box-shadow: 0 0 0 2px rgba(49, 152, 105, 0.2);
-}
-
 .login-input.error {
   border-color: #e74c3c;
   background-color: #fff9f9;

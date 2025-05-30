@@ -8,8 +8,8 @@ import './UserPage.css'
 export function AcessPage() {
     const [username, setUsername] = useState('');
     const [userCargo, setUserCargo] = useState(''); 
-    const [activeView, setActiveView] = useState('disciplinas'); // Estado para controlar a view ativa
-
+    const [activeView, setActiveView] = useState('disciplinas'); 
+    
     useEffect(() => {
         const storedUsername = localStorage.getItem('user_name');
         const storedCargo = localStorage.getItem('user_cargo'); 

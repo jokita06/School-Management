@@ -5,6 +5,7 @@
     --botoes-links-hover: #319869;
     --verde-escuro: #1b8052;
     --footer: #316751;
+    --branco: white;
 }
 
 * {
@@ -16,22 +17,10 @@
     font-style: normal;
 }
 
-/* button {
-    background-color: var(--botoes-links);
-    border: none;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: var(--botoes-links-hover);
-} */
-
 .default-buttons {
     background-color: var(--botoes-links);
     border: none;
-    color: white;
+    color: var(--branco);
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -40,9 +29,9 @@ button:hover {
     background-color: var(--botoes-links-hover);
 }
 
-input {
+input, select, textarea {
     border: 1.8px solid #ddd;
-    padding: 0.8rem 1rem;
+    padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     outline: none;
     width: 50%;
@@ -50,6 +39,6 @@ input {
     transition: border 0.3s;
 }
 
-input:focus {
-    border-color: #319869;
+input:focus, select:focus, textarea:focus {
+    border-color: var(--botoes-links-hover);
 }

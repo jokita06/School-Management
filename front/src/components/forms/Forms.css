@@ -1,0 +1,31 @@
+
+form div {
+    margin-bottom: 15px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input,
+form select,
+form textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    resize: none;
+    transition: border 0.3s;
+}
+
+.form-dashboard button[type="submit"] {
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--botoes-links);
+}
+
+form h2 {
+    text-align: center;
+    font-weight: 600;
+}

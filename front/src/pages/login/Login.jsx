@@ -23,7 +23,6 @@ export function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validate form
     try {
       schemaResolver.parse({ username, password });
       setErrors({});

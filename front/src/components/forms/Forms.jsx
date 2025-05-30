@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
+import './Forms.css'
+import { z } from "zod";
 
 export function DisciplineForm({ item, action, onClose }) {
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     nome: '',
     carga_horaria: '',
@@ -11,21 +14,26 @@ export function DisciplineForm({ item, action, onClose }) {
   const [professores, setProfessores] = useState([]);
 
   useEffect(() => {
-    // Carrega professores disponíveis
-    const fetchProfessores = async () => {
-      const response = await api.get('funcionarios/?cargo=P');
-      setProfessores(response.data);
-    };
-    fetchProfessores();
+    const fetchData = async () => {
+      
+      const response = await api.get('funcionarios/');
+      const professoresFiltrados = response.data.filter(
+        (funcionario) => funcionario.cargo === 'P'
+      );
 
-    if (item) {
-      setFormData({
-        nome: item.nome || '',
-        carga_horaria: item.carga_horaria || '',
-        descricao: item.descricao || '',
-        professor: item.professor?.id || ''
-      });
-    }
+      setProfessores(professoresFiltrados);
+  
+      if (item) {
+        setFormData({
+          nome: item.nome || '',
+          carga_horaria: item.carga_horaria || '',
+          descricao: item.descricao || '',
+          professor: item.professor?.id || '',
+        });
+      }
+    };
+  
+    fetchData();
   }, [item]);
 
   const handleSubmit = async (e) => {
@@ -143,6 +151,7 @@ export function EmployeeForm({ item, action, onClose }) {
     last_name: '',
     email: '',
     telefone: '',
+    dt_nascimento: '',
     data_contratacao: '',
     cargo: 'P',
     password: '',
@@ -158,6 +167,7 @@ export function EmployeeForm({ item, action, onClose }) {
         last_name : item.last_name || '',
         email: item.email || '',
         telefone: item.telefone || '',
+        dt_nascimento: item.dt_nascimento || '',
         data_contratacao: item.data_contratacao || '',
         cargo: item.cargo || 'P',
         password: item.password || '',
@@ -181,7 +191,7 @@ export function EmployeeForm({ item, action, onClose }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='form-dashboard'>
       <h2>{action === 'create' ? 'Adicionar' : 'Editar'} Funcionário</h2>
       <div>
         <label>NI:</label>
@@ -240,6 +250,15 @@ export function EmployeeForm({ item, action, onClose }) {
         />
       </div>
       <div>
+        <label>Data de Nascimento:</label>
+        <input
+          type="date"
+          value={formData.dt_nascimento}
+          onChange={(e) => setFormData({...formData, dt_nascimento: e.target.value})}
+          required
+        />
+      </div>
+      <div>
         <label>Data de Contratação:</label>
         <input
           type="date"
@@ -292,11 +311,15 @@ export function EnvironmentForm({ item, action, onClose }) {
       const [salasRes, disciplinasRes, professoresRes] = await Promise.all([
         api.get('salas/'),
         api.get('disciplinas/'),
-        api.get('funcionarios/?cargo=P')
+        api.get('funcionarios/')
       ]);
+
+      const professoresFiltrados = professoresRes.data.filter(
+        (funcionario) => funcionario.cargo === 'P'
+      )
       setSalas(salasRes.data);
       setDisciplinas(disciplinasRes.data);
-      setProfessores(professoresRes.data);
+      setProfessores(professoresFiltrados);
     };
     fetchData();
 
@@ -327,7 +350,7 @@ export function EnvironmentForm({ item, action, onClose }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='form-dashboard'>
       <h2>{action === 'create' ? 'Adicionar' : 'Editar'} Ambiente de Aula</h2>
       <div>
         <label>Sala:</label>
