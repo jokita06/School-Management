@@ -37,7 +37,6 @@ class FuncionarioSerializer(serializers.ModelSerializer):
 
         return instance
 
-
     def get_full_name(self,obj):
         return obj.get_full_name()
 
@@ -47,9 +46,6 @@ class SalaDeAulaSerializer(serializers.ModelSerializer):
         fields = ['id', 'nome']
 
 class DisciplinaSerializer(serializers.ModelSerializer):
-    # professor = serializers.StringRelatedField()
-    professor = serializers.PrimaryKeyRelatedField(queryset=Funcionario.objects.all(), many=False)
-
     class Meta:
         model = Disciplina
         fields = ['id', 'nome', 'carga_horaria', 'descricao', 'professor']
@@ -60,12 +56,14 @@ class DisciplinaSerializer(serializers.ModelSerializer):
             'descricao': {'required': True},
             'professor': {'required': True}
         }
+    
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['professor'] = f"{Funcionario.objects.get(id=representation['professor']).get_full_name()}"
+
+        return representation
 
 class AmbienteAulaSerializer(serializers.ModelSerializer):    
-    sala_reservada = serializers.PrimaryKeyRelatedField(queryset=SalaDeAula.objects.all(), many=False)
-    disciplina = serializers.PrimaryKeyRelatedField(queryset=Disciplina.objects.all(), many=False)
-    #professor = serializers.SlugRelatedField(queryset=Funcionario.objects.all(), slug_field="id")
-
     class Meta:
         model = AmbienteAula
         fields = ['id', 'sala_reservada', 'disciplina', 'dt_inicio', 'dt_termino', 'periodo', 'professor']
@@ -73,6 +71,9 @@ class AmbienteAulaSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['professor'] = f"{Funcionario.objects.get(id=representation['professor']).get_full_name()}"
+        representation['disciplina'] = f"{Disciplina.objects.get(id=representation['disciplina'])}"
+        representation['sala_reservada'] = f"{SalaDeAula.objects.get(id=representation['sala_reservada'])}"
+
         return representation
 
 class LoginSerializer(TokenObtainPairSerializer):
