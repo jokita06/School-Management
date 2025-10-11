@@ -1,6 +1,6 @@
 # 🏫 School Management System
 
-A comprehensive school management platform built with Django and React, designed to streamline administrative operations and enhance educational organization in a fictional school environment.
+A school management platform designed to streamline administrative operations and enhance educational organization in a fictional school environment.
 
 ## Project Overview
 
